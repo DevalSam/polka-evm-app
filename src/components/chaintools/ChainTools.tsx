@@ -47,6 +47,7 @@ export function ChainTools() {
         </button>
       </div>
       
+      {/* Substrate Metadata section with only one header */}
       <div className={styles.toolCard}>
         <div className={styles.toolHeader}>
           <h3 className={styles.toolTitle}>Substrate Metadata</h3>

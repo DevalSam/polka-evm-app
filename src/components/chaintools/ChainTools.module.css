@@ -17,6 +17,13 @@
   margin-bottom: var(--space-2xl);
 }
 
+.metadataViewer {
+  background-color: #003366; /* Deep blue for Polkadot theme */
+  border-radius: 8px;
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
 .chainToolsContainer::-webkit-scrollbar {
   width: 6px;
 }

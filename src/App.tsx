@@ -12,7 +12,7 @@ import NetworkSelector from './components/NetworkSelector';
 import { WalletConnector } from './components/WalletConnector';
 import { ContractInteractor } from './components/ContractInteractor';
 import { ChainTools } from './components/chaintools/ChainTools';
-import { DevTools } from './components/DevTools';
+import { DeveloperTools } from './components/devtools/DeveloperTools'; // Keep this import
 
 const CONTRACT_ADDRESS = '0xd9145CCE52D386f254917e481eB44e9943F39138';
 
@@ -93,8 +93,8 @@ export default function App() {
       {/* Chain Tools Section */}
       <ChainTools />
 
-      {/* Developer Tools Section */}
-      <DevTools />
+      {/* Developer Tools Section - Fixed component name */}
+      <DeveloperTools /> {/* Changed from DevTools to DeveloperTools */}
     </div>
   );
 }

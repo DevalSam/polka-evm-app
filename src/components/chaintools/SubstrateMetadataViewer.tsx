@@ -1,6 +1,5 @@
-// SubstrateMetadataViewer.tsx
-//import React from 'react';
 import styles from './ChainTools.module.css';
+
 export function SubstrateMetadataViewer() {
   return (
     <div className={styles.metadataViewer}>
@@ -17,6 +16,11 @@ export function SubstrateMetadataViewer() {
       <div className={styles.resultBox}>
         No metadata loaded. Select a version to view metadata.
       </div>
+      
+      <button className={styles.actionButton}>
+        <span className={styles.buttonIcon}>🔍</span>
+        Fetch Latest Metadata
+      </button>
     </div>
   );
 }

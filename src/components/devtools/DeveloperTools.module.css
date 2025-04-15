@@ -31,9 +31,10 @@
   margin: 0;
 }
 
+/* Updated grid layout to match requirements */
 .toolsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
 }
 
@@ -46,6 +47,11 @@
   flex-direction: column;
   gap: 1rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* Set a min-height for consistent card height */
+  min-height: 280px;
+  /* Use flex layout to push button group to bottom */
+  display: flex;
+  flex-direction: column;
 }
 
 .toolCard:hover {
@@ -75,6 +81,12 @@
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
   border: 1px solid rgba(230, 0, 122, 0.3);
+}
+
+.toolContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .inputGroup {
@@ -137,14 +149,16 @@
   overflow-y: auto;
 }
 
+/* Updated button group to distribute buttons evenly */
 .buttonGroup {
   display: flex;
+  justify-content: space-evenly;
   gap: 0.75rem;
-  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 .actionButton {
-  align-self: flex-start;
   background-color: #e6007a;
   color: white;
   font-weight: 600;
@@ -156,6 +170,9 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  /* Set a fixed width for consistent button sizing */
+  flex: 1;
+  justify-content: center;
 }
 
 .actionButton:hover {
@@ -178,6 +195,8 @@
   color: #FF52A1;
   font-weight: 500;
   border: 1px solid #e6007a;
+  flex: 1;
+  justify-content: center;
 }
 
 .secondaryButton:hover {
@@ -225,6 +244,13 @@
   to { transform: rotate(360deg); }
 }
 
+/* Responsive design as per requirements */
+@media screen and (max-width: 992px) {
+  .toolsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .devToolsContainer {
     padding: 1rem;
@@ -232,14 +258,5 @@
   
   .toolsGrid {
     grid-template-columns: 1fr;
-  }
-  
-  .buttonGroup {
-    flex-direction: column;
-  }
-  
-  .actionButton, 
-  .secondaryButton {
-    width: 100%;
   }
 }

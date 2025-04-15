@@ -53,7 +53,7 @@ export function ContractInteractor() {
       <div className={styles.inputGroup}>
         <label className={styles.label}>ABI JSON:</label>
         <textarea 
-          className={styles.textAreaField}
+          className={styles.textareaField}
           placeholder="Paste ABI JSON here..." 
           value={abi}
           onChange={(e) => setAbi(e.target.value)}

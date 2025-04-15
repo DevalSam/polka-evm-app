@@ -1,0 +1,44 @@
+.connectionGridContainer {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+  .gridLayout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  .leftColumn {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+  }
+  
+  .rightColumn {
+    height: 100%;
+  }
+  
+  /* Responsive layout */
+  @media screen and (max-width: 992px) {
+    .gridLayout {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+    }
+    
+    .leftColumn {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+    }
+    
+    .rightColumn {
+      margin-top: 1.5rem;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .leftColumn {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+    }
+  }

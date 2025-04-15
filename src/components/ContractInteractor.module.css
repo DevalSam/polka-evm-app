@@ -1,4 +1,16 @@
 @import '../variables.css';
+.abiContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: #17132b;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(230, 0, 122, 0.3);
+  height: 100%;
+  width: 100%;
+}
+
 .contractInteractorContainer {
   display: flex;
   flex-direction: column;
