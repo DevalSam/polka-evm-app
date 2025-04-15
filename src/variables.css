@@ -1,0 +1,56 @@
+:root {
+  /* Theme Colors */
+  --polkadot-purple: #E6007A;
+  --polkadot-dark: #1e1a36;
+  --polkadot-darker: #151225;
+  --polkadot-light: #FF52A1;
+  
+  /* UI Colors */
+  --panel-bg: #25223d;
+  --metadata-bg: #17132b;
+  --input-bg: #151225;
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #d1d1f7;
+  --text-tertiary: #888888;
+  
+  /* Border & Accents */
+  --border-accent: rgba(230, 0, 122, 0.3);
+  --border-color: rgba(255, 255, 255, 0.1);
+  
+  /* Layout Variables */
+  --primary-bg: var(--polkadot-dark);
+  --secondary-bg: var(--polkadot-darker);
+  --accent-light: var(--polkadot-light);
+  --border-radius: 12px;
+  
+  /* Spacing */
+  --spacing-unit: 1rem;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.25rem;
+  --space-2xl: 1.5rem;
+  --space-3xl: 2rem;
+  
+  /* Typography */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Roboto Mono', monospace;
+  --font-size-xs: 0.7rem;
+  --font-size-sm: 0.85rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.1rem;
+  --font-size-xl: 1.25rem;
+  
+  /* Effects */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+  
+  /* Transitions */
+  --transition-fast: 0.1s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+}

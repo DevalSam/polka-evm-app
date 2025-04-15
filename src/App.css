@@ -1,0 +1,298 @@
+@import './variables.css';
+
+/* ===== Global Page Styling ===== */
+html, body {
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+/* ===== Base Layout ===== */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--spacing-unit);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.container {
+  width: 100%;
+  padding: 0 var(--space-lg);
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--border-accent);
+}
+
+.app-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--polkadot-purple);
+}
+
+.app-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.section-heading {
+  font-size: var(--font-size-xl);
+  color: var(--polkadot-light);
+  margin-bottom: var(--space-lg);
+  font-weight: 600;
+}
+
+/* ===== Buttons ===== */
+.button-primary,
+.dev-tool-buttons button,
+.tool-buttons button {
+  background: var(--polkadot-purple);
+  color: white;
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.button-primary:hover,
+.dev-tool-buttons button:hover,
+.tool-buttons button:hover {
+  background: var(--polkadot-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.button-primary:active,
+.dev-tool-buttons button:active,
+.tool-buttons button:active {
+  transform: translateY(0);
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--polkadot-light);
+  border: 1px solid var(--polkadot-purple);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  font-weight: 500;
+}
+
+.button-secondary:hover {
+  background: rgba(230, 0, 122, 0.1);
+}
+
+/* ===== Inputs & Textareas ===== */
+input, textarea, select {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: var(--space-md);
+  border-radius: 8px;
+  margin-bottom: var(--space-lg);
+  font-family: var(--font-mono);
+  transition: border-color var(--transition-normal);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--polkadot-purple);
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23E6007A' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 1rem) center;
+  padding-right: 2.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ===== Panels ===== */
+.contract-panel,
+.tool-section,
+.moonbeam-tools,
+.metadata-viewer,
+.dev-tool-card,
+.wallet-connector,
+.network-panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--border-radius);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.contract-panel:hover,
+.tool-section:hover,
+.dev-tool-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ===== Section Specific ===== */
+.contract-panel input,
+.contract-panel textarea,
+.dev-tool-card textarea {
+  background: var(--input-bg);
+  border: 1px solid var(--border-accent);
+  color: var(--text-primary);
+}
+
+.moonbeam-tools h3,
+.metadata-viewer h3,
+.dev-tool-card h4,
+.tool-section h3,
+.tool-section h4 {
+  color: var(--accent-light);
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+
+.tool-buttons,
+.dev-tool-buttons {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+/* ===== Grid Layouts ===== */
+.tool-grid,
+.dev-tools-grid,
+.chain-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-xl);
+}
+
+/* ===== Utility ===== */
+.flex {
+  display: flex;
+  gap: var(--spacing-unit);
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.gap-2 {
+  gap: calc(var(--spacing-unit) * 2);
+}
+
+.text-accent {
+  color: var(--polkadot-light);
+}
+
+.monospace {
+  font-family: var(--font-mono);
+}
+
+.code-block {
+  background: var(--polkadot-darker);
+  padding: var(--space-lg);
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  border: 1px solid var(--border-accent);
+}
+
+/* ===== Animations ===== */
+@media (prefers-reduced-motion: no-preference) {
+  .loading-spinner {
+    animation: spin 1.5s linear infinite;
+  }
+  
+  .pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+  :root {
+    --spacing-unit: 0.75rem;
+  }
+
+  #root {
+    padding: var(--spacing-unit);
+  }
+  
+  .tool-buttons,
+  .dev-tool-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .button-primary,
+  .dev-tool-buttons button,
+  .tool-buttons button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .contract-panel,
+  .tool-section,
+  .dev-tool-card {
+    padding: var(--space-lg);
+  }
+}

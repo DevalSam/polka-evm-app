@@ -1,0 +1,189 @@
+@import '../variables.css';
+.contractInteractorContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: #17132b;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(230, 0, 122, 0.3);
+  width: 100%;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(230, 0, 122, 0.3);
+  margin-bottom: 1rem;
+}
+
+.sectionIcon {
+  color: #e6007a;
+  font-size: 1.25rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.abiSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #d1d1f7;
+}
+
+.inputField {
+  padding: 0.65rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #151225;
+  color: #ffffff;
+  font-family: 'Roboto Mono', monospace;
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+
+.inputField:focus {
+  border-color: #e6007a;
+  outline: none;
+}
+
+.textareaField {
+  padding: 0.65rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #151225;
+  color: #ffffff;
+  font-family: 'Roboto Mono', monospace;
+  transition: border-color 0.2s ease;
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+}
+
+.textareaField:focus {
+  border-color: #e6007a;
+  outline: none;
+}
+
+.functionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.functionSelector {
+  padding: 0.65rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #151225;
+  color: #ffffff;
+  width: 100%;
+}
+
+.functionSelector:focus {
+  border-color: #e6007a;
+  outline: none;
+}
+
+.paramsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.paramField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.actionButton {
+  align-self: flex-start;
+  background-color: #e6007a;
+  color: white;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.actionButton:hover {
+  background-color: #FF52A1;
+  transform: translateY(-1px);
+}
+
+.actionButton:active {
+  transform: translateY(0);
+}
+
+.actionButton:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.resultBox {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  color: #d1d1f7;
+  overflow-x: auto;
+  margin-top: 0.75rem;
+  min-height: 2.5rem;
+}
+
+.resultSuccess {
+  color: #4CAF50;
+}
+
+.resultError {
+  color: #F44336;
+}
+
+.loadingState {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #d1d1f7;
+  font-size: 0.85rem;
+}
+
+.loadingSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #e6007a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media screen and (max-width: 768px) {
+  .contractInteractorContainer {
+    padding: 1rem;
+  }
+}

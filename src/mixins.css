@@ -1,0 +1,186 @@
+/* This file contains CSS class selectors that can be imported and used with @import in your component CSS files */
+/* These are like mixins but implemented as regular CSS classes */
+
+/* Container styles */
+.container-base {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    background: var(--bg-primary);
+    padding: var(--space-2xl);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-accent);
+  }
+  
+  /* Section header styles */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-accent);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .section-icon {
+    color: var(--polkadot-purple);
+    font-size: var(--font-size-xl);
+  }
+  
+  .section-title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  
+  /* Card styles */
+  .card {
+    background: var(--polkadot-darker);
+    border: 1px solid var(--border-color);
+    padding: var(--space-xl);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-accent);
+  }
+  
+  /* Form element styles */
+  .input-field {
+    padding: 0.65rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--polkadot-darker);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    transition: border-color var(--transition-normal);
+    width: 100%;
+  }
+  
+  .input-field:focus {
+    border-color: var(--polkadot-purple);
+    outline: none;
+  }
+  
+  .textarea-field {
+    padding: 0.65rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--polkadot-darker);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    transition: border-color var(--transition-normal);
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  .textarea-field:focus {
+    border-color: var(--polkadot-purple);
+    outline: none;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+  
+  .label {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  
+  /* Button styles */
+  .button-primary {
+    align-self: flex-start;
+    background-color: var(--polkadot-purple);
+    color: white;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background var(--transition-normal), transform var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  
+  .button-primary:hover {
+    background-color: var(--polkadot-light);
+    transform: translateY(-1px);
+  }
+  
+  .button-primary:active {
+    transform: translateY(0);
+  }
+  
+  .button-primary:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  /* Result display styles */
+  .result-box {
+    background-color: var(--bg-tertiary);
+    border-radius: 6px;
+    padding: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    overflow-x: auto;
+    margin-top: var(--space-md);
+  }
+  
+  .result-success {
+    color: #4CAF50;
+  }
+  
+  .result-error {
+    color: #F44336;
+  }
+  
+  /* Loading states */
+  .loading-state {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+  }
+  
+  .loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border-color);
+    border-top-color: var(--polkadot-purple);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Media queries */
+  @media screen and (max-width: 768px) {
+    .container-base {
+      padding: var(--space-lg);
+    }
+    
+    .card {
+      padding: var(--space-lg);
+    }
+  }

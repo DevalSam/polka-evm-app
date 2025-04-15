@@ -1,0 +1,64 @@
+/* Base Styles for Polkadot UI */
+:root {
+    --primary-bg: #1e1a36;
+    --secondary-bg: #2e2256;
+    --accent-color: #8a63d2;
+    --accent-light: #9b75e3;
+    --text-primary: #ffffff;
+    --text-secondary: #b8b8d2;
+    --success-color: #4caf50;
+    --error-color: #f44336;
+    --warning-color: #ff9800;
+    --info-color: #2196f3;
+    --border-color: rgba(138, 99, 210, 0.2);
+    --border-radius: 12px;
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #151225;
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .network-panel,
+    .wallet-connector,
+    .contract-panel {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .function-card {
+      padding: 1rem;
+    }
+  }
+  
+  /* Tooltip Styles */
+  [data-tooltip] {
+    position: relative;
+  }
+  
+  [data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--secondary-bg);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+    border: 1px solid var(--border-color);
+  }
+  
+  [data-tooltip]:hover::after {
+    opacity: 1;
+  }

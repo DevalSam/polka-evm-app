@@ -1,0 +1,82 @@
+/* Wallet Connector - Polkadot Themed */
+.wallet-connector {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: linear-gradient(145deg, #2e2256, #1e1a36);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(138, 99, 210, 0.2);
+  }
+  
+  .wallet-connector select {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(138, 99, 210, 0.4);
+    border-radius: 8px;
+    background: rgba(30, 22, 54, 0.8);
+    color: #ffffff;
+    font-size: 0.9rem;
+    min-width: 220px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  
+  .wallet-connector select:hover {
+    border-color: #8a63d2;
+  }
+  
+  .wallet-connector span {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    color: #8a63d2;
+    padding: 0.5rem 0.75rem;
+    background: rgba(138, 99, 210, 0.1);
+    border-radius: 6px;
+    border: 1px solid rgba(138, 99, 210, 0.2);
+  }
+  
+  .wallet-connector button {
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(135deg, #8a63d2, #6a4dbb);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .wallet-connector button:hover {
+    background: linear-gradient(135deg, #9b75e3, #7b5dcc);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+  
+  .wallet-connector button:active {
+    transform: translateY(0);
+  }
+  
+  .wallet-connector button[onClick="disconnect"] {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+  }
+  
+  .wallet-connector button[onClick="disconnect"]:hover {
+    background: linear-gradient(135deg, #ff6659, #e53935);
+  }
+  
+  /* Wallet Selection Dropdown */
+  .wallet-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+  }
+  
+  .wallet-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+  }

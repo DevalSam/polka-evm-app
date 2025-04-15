@@ -1,0 +1,283 @@
+/* Main connection grid: 2fr left column, 1fr right column */
+.connectionGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Left section with 2 rows */
+.leftSection {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 1.5rem;
+}
+
+/* Network and Wallet sections */
+.networkPanel, 
+.walletConnector {
+  background-color: var(--panel-bg);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-accent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Right section with ABI Input (1 row) */
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--panel-bg);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-accent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  height: 100%; /* Make it fill the height to match the left column */
+}
+
+/* Section titles */
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--polkadot-light);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionTitle svg {
+  color: var(--polkadot-purple);
+}
+
+/* Shared Form Styles */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.inputField,
+.textAreaField,
+.selectField {
+  background: var(--polkadot-darker);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-family: 'Roboto Mono', monospace;
+  transition: border-color 0.2s ease;
+}
+
+.inputField:focus,
+.textAreaField:focus,
+.selectField:focus {
+  border-color: var(--polkadot-purple);
+  outline: none;
+}
+
+.textAreaField {
+  min-height: 150px;
+  resize: vertical;
+  flex-grow: 1; /* Make the textarea fill the available space */
+}
+
+.selectField {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23E6007A' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 1rem) center;
+  padding-right: 2.5rem;
+}
+
+/* Network Status Indicator */
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--polkadot-darker);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.statusDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.statusConnected {
+  background-color: #4CAF50;
+}
+
+.statusDisconnected {
+  background-color: #F44336;
+}
+
+.statusPending {
+  background-color: #FFC107;
+  animation: pulse 1.5s infinite;
+}
+
+/* Buttons */
+.connectButton {
+  margin-top: 1rem;
+  background: var(--polkadot-purple);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.connectButton:hover {
+  background: var(--polkadot-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.connectButton:active {
+  transform: translateY(0);
+}
+
+/* ABI Upload Area */
+.uploadArea {
+  border: 2px dashed var(--border-accent);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.uploadArea:hover {
+  border-color: var(--polkadot-purple);
+  background-color: rgba(230, 0, 122, 0.05);
+}
+
+.uploadIcon {
+  color: var(--polkadot-purple);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.uploadText {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ABI content area that fills available space */
+.abiContent {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+}
+
+/* Wallet Address Display */
+.walletAddressContainer {
+  margin-top: 1rem;
+}
+
+.walletLabel {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.walletAddress {
+  word-break: break-all;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  background: var(--polkadot-darker);
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  position: relative;
+}
+
+.copyButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.copyButton:hover {
+  color: var(--polkadot-light);
+}
+
+.networkBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: rgba(230, 0, 122, 0.1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--polkadot-light);
+  margin-bottom: 1rem;
+}
+
+/* Responsive Layout */
+@media screen and (max-width: 1024px) {
+  .connectionGrid {
+    gap: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .connectionGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .leftSection {
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .rightSection {
+    min-height: 300px; /* Ensure minimum height on mobile */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .networkPanel, 
+  .walletConnector,
+  .rightSection {
+    padding: 1rem;
+  }
+  
+  .uploadArea {
+    padding: 1rem;
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

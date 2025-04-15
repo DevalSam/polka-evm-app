@@ -1,0 +1,112 @@
+/* Contract Interaction Panel - Professional Dark Theme */
+.contract-panel {
+    background: linear-gradient(145deg, #2e2256, #1e1a36);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(138, 99, 210, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contract-panel input,
+  .contract-panel textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(138, 99, 210, 0.3);
+    border-radius: 8px;
+    background: rgba(30, 22, 54, 0.7);
+    color: #ffffff;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+  }
+  
+  .contract-panel input:focus,
+  .contract-panel textarea:focus {
+    outline: none;
+    border-color: #8a63d2;
+    box-shadow: 0 0 0 3px rgba(138, 99, 210, 0.2);
+  }
+  
+  .contract-panel textarea {
+    min-height: 150px;
+    resize: vertical;
+    font-family: 'Roboto Mono', monospace;
+    line-height: 1.5;
+  }
+  
+  .function-card {
+    background: rgba(30, 22, 54, 0.8);
+    border: 1px solid rgba(138, 99, 210, 0.2);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease;
+  }
+  
+  .function-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(138, 99, 210, 0.4);
+  }
+  
+  .function-card h4 {
+    margin: 0 0 1rem 0;
+    color: #8a63d2;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .function-card h4::before {
+    content: '↳';
+    color: rgba(138, 99, 210, 0.6);
+  }
+  
+  .function-card input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    background: rgba(20, 15, 40, 0.6);
+    border: 1px solid rgba(138, 99, 210, 0.2);
+    color: #ffffff;
+  }
+  
+  .function-card button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+  
+  .function-card button[data-state="view"] {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+  }
+  
+  .function-card button[data-state="payable"] {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+  }
+  
+  .function-card button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .function-card button:active {
+    transform: translateY(0);
+  }
+  
+  /* Input Parameter Labels */
+  .input-param {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Roboto Mono', monospace;
+  }

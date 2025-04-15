@@ -1,0 +1,84 @@
+/* Network Selector - Modern Polkadot Theme */
+.network-panel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: linear-gradient(145deg, #2e2256, #1e1a36);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(138, 99, 210, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .network-panel select {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(138, 99, 210, 0.4);
+    border-radius: 8px;
+    background: rgba(30, 22, 54, 0.8);
+    color: #ffffff;
+    font-size: 0.9rem;
+    min-width: 220px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238a63d2'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+  }
+  
+  .network-panel select:hover {
+    border-color: #8a63d2;
+    box-shadow: 0 0 0 2px rgba(138, 99, 210, 0.2);
+  }
+  
+  .network-panel select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(138, 99, 210, 0.3);
+  }
+  
+  .status-indicator {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    margin-left: 0.5rem;
+    position: relative;
+  }
+  
+  .status-indicator.connected {
+    background-color: #4caf50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
+  }
+  
+  .status-indicator.disconnected {
+    background-color: #f44336;
+    animation: pulse 1.5s infinite cubic-bezier(0.4, 0, 0.6, 1);
+  }
+  
+  .status-indicator::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.25rem 0.5rem;
+    background: #2a2a3a;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  
+  .status-indicator:hover::after {
+    opacity: 1;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }

@@ -1,0 +1,94 @@
+/* ==============================================
+   Polkadot Theme Variables
+   ============================================== */
+
+:root {
+  /* Brand Colors - Polkadot Primary Colors */
+  --polkadot-purple: #E6007A; /* Primary Polkadot Pink/Magenta */
+  --polkadot-purple-hover: #FF52A1; /* Lighter version for hover states */
+  --polkadot-dark: #0f0c1d; /* Dark background */
+  --polkadot-darker: #0a0815; /* Darker background for inputs, etc */
+  --polkadot-light: #FF52A1; /* Lighter accent for highlights */
+  
+  /* UI Component Backgrounds */
+  --background: var(--polkadot-dark);
+  --panel-bg: #1d1833; /* Panel background */
+  --panel-bg-hover: #242043; /* Panel hover background */
+  --metadata-bg: #17132b; /* Darker area for metadata/code */
+  --input-bg: #12101f; /* Form input background */
+  
+  /* Text Colors */
+  --text-primary: #ffffff; /* Primary text */
+  --text-secondary: #b8b8d2; /* Secondary/muted text */
+  --text-disabled: rgba(184, 184, 210, 0.5); /* Disabled text */
+  
+  /* Borders & Accents */
+  --border-accent: rgba(230, 0, 122, 0.3); /* Accent border with purple */
+  --border-color: rgba(255, 255, 255, 0.1); /* Default border color */
+  --border-focus: var(--polkadot-purple); /* Focus border */
+  
+  /* Status Colors */
+  --success: #4CAF50; /* Success state */
+  --error: #F44336; /* Error state */
+  --warning: #FFC107; /* Warning state */
+  --info: #2196F3; /* Info state */
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+  --shadow-focus: 0 0 0 2px rgba(230, 0, 122, 0.25);
+  
+  /* Spacing System */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem;  /* 8px */
+  --spacing-md: 1rem;    /* 16px */
+  --spacing-lg: 1.5rem;  /* 24px */
+  --spacing-xl: 2rem;    /* 32px */
+  --spacing-xxl: 3rem;   /* 48px */
+  
+  /* Typography */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Roboto Mono', monospace;
+  --font-size-xs: 0.75rem;  /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-md: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem;  /* 20px */
+  --font-size-xxl: 1.5rem;  /* 24px */
+  
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 9999px;
+  
+  /* Animations & Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Z-index Layers */
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 100;
+  --z-modal: 1000;
+  --z-toast: 2000;
+  
+  /* Container */
+  --max-width: 1280px;
+  
+  /* Component Specific */
+  --button-height: 2.5rem;
+  --input-height: 2.5rem;
+  --border-radius: var(--radius-lg);
+}
+
+/* Dark Mode Optimization (already dark by default) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Already using dark theme, these are fallbacks */
+    color-scheme: dark;
+  }
+}

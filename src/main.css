@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Primary Polkadot Colors */
+  --polkadot-purple: #E6007A; /* Primary Polkadot Pink/Purple */
+  --polkadot-dark: #0f0c1d;
+  --polkadot-darker: #0a0815;
+  --polkadot-light: #FF52A1;
+  
+  /* UI Element Colors */
+  --panel-bg: #1d1833;
+  --metadata-bg: #17132b;
+  --input-bg: #12101f;
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #b8b8d2;
+  
+  /* Border & Accents */
+  --border-accent: rgba(230, 0, 122, 0.3);
+  --border-color: rgba(255, 255, 255, 0.1);
+  
+  /* Spacing & Sizing */
+  --border-radius: 12px;
+  --spacing-unit: 1rem;
+  
+  /* Fonts */
+  --font-body: 'Inter', sans-serif;
+  --font-code: 'Roboto Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--polkadot-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Import other CSS files to ensure they're included */
+@import './App.css';
+@import './theme.css';
+@import './utils.css';

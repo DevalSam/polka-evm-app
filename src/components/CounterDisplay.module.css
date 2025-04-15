@@ -1,0 +1,146 @@
+@import '../variables.css';
+.counterContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--panel-bg);
+  color: var(--text-primary);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-body);
+  margin-bottom: 2rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: 1px solid var(--border-accent);
+  position: relative;
+  overflow: hidden;
+}
+
+.counterContainer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--polkadot-purple), var(--polkadot-light));
+}
+
+.counterContainer:hover {
+  background-color: var(--polkadot-darker);
+  transform: translateY(-3px);
+}
+
+.counterValue {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 0;
+  color: var(--polkadot-light);
+  text-shadow: 0 0 10px rgba(230, 0, 122, 0.3);
+}
+
+.counterLabel {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.updateIndicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--polkadot-purple);
+  margin-left: 8px;
+  animation: pulse 1.5s infinite;
+  display: inline-block;
+}
+
+.counterActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.counterButton {
+  background: var(--polkadot-purple);
+  color: white;
+  border: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.counterButton:hover {
+  background: var(--polkadot-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.valueChange {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Address display for contract */
+.contractAddress {
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--polkadot-darker);
+  border-radius: 6px;
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  word-break: break-all;
+  max-width: 100%;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .counterContainer {
+    padding: 1.5rem;
+  }
+  
+  .counterValue {
+    font-size: 2.5rem;
+  }
+  
+  .counterLabel {
+    font-size: 1rem;
+  }
+  
+  .contractAddress {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .counterValue {
+    font-size: 2rem;
+  }
+  
+  .counterActions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .counterButton {
+    width: 100%;
+  }
+}
