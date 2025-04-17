@@ -8,7 +8,7 @@ A lightweight, plug-and-play frontend library designed to help Polkadot develope
 ---
 
 ## 🚀 Overview
-
+![App_Preview](/src/IMG/cam2.png)
 This library bridges the familiar Solidity development experience with the Polkadot ecosystem. Whether you're deploying new contracts or building UIs that interact with existing EVM-based contracts, this toolset makes it easy to connect, deploy, and interact — all using React components powered by Polkadot.js and ethers.js.
 
 ---
