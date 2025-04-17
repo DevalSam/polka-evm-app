@@ -1,7 +1,7 @@
 # EVM Interface Framework for Polkadot
 
 <div align="center">
-  <img src="./src/IMG/cam1.png" alt="EVM Interface Framework Logo" width="400px" />
+  <img src="./src/IMG/cam1.png" alt="EVM Interface Framework Logo" width="700px" />
   
   <p>
     <strong>Bridging Substrate and Solidity Development in the Polkadot Ecosystem</strong>
@@ -230,4 +230,4 @@ Special thanks to:
 
 <div align="center">
   <p>Built with ❤️ for the Polkadot ecosystem</p>
-</div>
+</div
