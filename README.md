@@ -1,5 +1,6 @@
+<center>
 # EVM Interface Framework for Polkadot
-
+</center>
 <div align="center">
   <img src="./src/IMG/cam1.png" alt="EVM Interface Framework Logo" width="900px" />
   
