@@ -219,12 +219,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgements
 
-This project was made possible through funding from the Web3 Foundation and the support of the Polkadot ecosystem community.
+This project was made possible through our passion the Web3 space and huge support from the Polkadot ecosystem community.
 
 Special thanks to:
-- The Moonbeam and Astar teams for their EVM implementations
 - The Polkadot.js team for their excellent substrate libraries
-- All the developers who provided feedback and contributions
+- The Moonbeam and Astar teams for their EVM implementations
+- All the developers who keep providing feedback and contributions
 
 ---
 
