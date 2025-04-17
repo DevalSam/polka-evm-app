@@ -219,7 +219,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgements
 
-This project was made possible through our passion the Web3 space and huge support from the Polkadot ecosystem community.
+This project was made possible through our shared passion for the Web3 space and huge support from the Polkadot ecosystem community.
 
 Special thanks to:
 - The Polkadot.js team for their excellent substrate libraries
