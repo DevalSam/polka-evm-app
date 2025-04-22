@@ -37,6 +37,11 @@ html, body {
   border-bottom: 1px solid var(--border-accent);
 }
 
+.App-header h1 {
+  margin-bottom: var(--space-2xl);
+  color: var(--text-primary);
+}
+
 .app-title {
   font-size: var(--font-size-xl);
   font-weight: 700;
@@ -51,6 +56,64 @@ html, body {
   font-size: var(--font-size-xl);
   color: var(--polkadot-light);
   margin-bottom: var(--space-lg);
+  font-weight: 600;
+}
+
+/* ===== Deployment Switcher ===== */
+.deployment-switcher {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-3xl);
+}
+
+.switcher-button {
+  padding: var(--space-lg) var(--space-2xl);
+  background-color: var(--metadata-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  font-weight: 500;
+}
+
+.switcher-button:hover {
+  border-color: var(--border-accent);
+}
+
+.switcher-button.active {
+  background-color: var(--polkadot-purple);
+  color: var(--text-primary);
+  border-color: var(--polkadot-purple);
+}
+
+.action-switcher {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
+  margin: var(--space-2xl) 0;
+}
+
+.action-button {
+  padding: var(--space-lg) var(--space-2xl);
+  background-color: var(--polkadot-darker);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  font-size: var(--font-size-sm);
+}
+
+.action-button:hover {
+  border-color: var(--border-accent);
+}
+
+.action-button.active {
+  background-color: var(--metadata-bg);
+  border-color: var(--polkadot-purple);
+  color: var(--polkadot-light);
   font-weight: 600;
 }
 
@@ -146,7 +209,8 @@ label {
 .metadata-viewer,
 .dev-tool-card,
 .wallet-connector,
-.network-panel {
+.network-panel,
+.info-box {
   background: var(--panel-bg);
   border: 1px solid var(--border-accent);
   border-radius: var(--border-radius);
@@ -164,6 +228,10 @@ label {
 }
 
 /* ===== Section Specific ===== */
+.contract-section {
+  margin-top: var(--space-3xl);
+}
+
 .contract-panel input,
 .contract-panel textarea,
 .dev-tool-card textarea {
@@ -176,11 +244,17 @@ label {
 .metadata-viewer h3,
 .dev-tool-card h4,
 .tool-section h3,
-.tool-section h4 {
+.tool-section h4,
+.info-box h3 {
   color: var(--accent-light);
   margin-bottom: var(--space-lg);
   font-size: var(--font-size-lg);
   font-weight: 600;
+}
+
+.info-box p {
+  color: var(--text-secondary);
+  margin-bottom: 0;
 }
 
 .tool-buttons,
@@ -189,6 +263,17 @@ label {
   gap: var(--space-md);
   margin-top: var(--space-lg);
   flex-wrap: wrap;
+}
+
+/* ===== Notifications ===== */
+.warning-box {
+  margin: var(--space-xl) 0;
+  padding: var(--space-lg);
+  background-color: rgba(255, 152, 0, 0.1);
+  color: var(--text-primary);
+  border-radius: calc(var(--border-radius) / 2);
+  border-left: 4px solid #ff9800;
+  text-align: center;
 }
 
 /* ===== Grid Layouts ===== */
@@ -274,6 +359,18 @@ label {
 
   #root {
     padding: var(--spacing-unit);
+  }
+
+  .deployment-switcher,
+  .action-switcher {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .switcher-button,
+  .action-button {
+    width: 100%;
+    max-width: 300px;
   }
   
   .tool-buttons,

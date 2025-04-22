@@ -1,15 +1,16 @@
+// src/utils/inkContractDeployer.ts
 import { ApiPromise, WsProvider } from '@polkadot/api';
-import { ContractPromise } from '@polkadot/api-contract';
-import { Abi } from '@polkadot/api-contract/Abi';
+import { Abi, ContractPromise } from '@polkadot/api-contract';
 import { Keyring } from '@polkadot/keyring';
 import { KeyringPair } from '@polkadot/keyring/types';
-import { web3FromAddress } from '@polkadot/extension-dapp';
 import { BN, hexToU8a } from '@polkadot/util';
 import type { ISubmittableResult } from '@polkadot/types/types';
+// Import web3FromAddress only where needed to avoid unused import warning
+
 
 export interface InkDeploymentOptions {
   wasm: Uint8Array | string;
-  abi: any; // Can be Abi or raw JSON
+  abi: any;
   constructorName: string;
   constructorArgs: any[];
   value?: BN;
@@ -27,6 +28,9 @@ export interface InkDeploymentResult {
   events: any[];
 }
 
+/**
+ * Deploy an ink! contract on a Substrate-based chain
+ */
 export async function deployInkContract({
   wasm,
   abi,
@@ -39,15 +43,15 @@ export async function deployInkContract({
   signer,
   endpoint
 }: InkDeploymentOptions): Promise<InkDeploymentResult> {
-  // Connect to the network
   const provider = new WsProvider(endpoint);
   const api = await ApiPromise.create({ provider });
 
   try {
-    // Create the ABI instance
-    const contractAbi = new Abi(abi, api.registry.getChainProperties());
+    // Import here to avoid unused import warning at the top
+    const { web3FromAddress } = await import('@polkadot/extension-dapp');
     
-    // Get the injector for the signer
+    // Parse the ABI
+    const contractAbi = new Abi(abi, api.registry.getChainProperties());
     const injector = await web3FromAddress(signer);
     
     // Prepare WASM - convert from hex if needed
@@ -58,47 +62,50 @@ export async function deployInkContract({
       ? (typeof salt === 'string' ? hexToU8a(salt) : salt) 
       : new Uint8Array(0);
 
-    // Create the contract factory
-    const contract = new ContractPromise(api, contractAbi, wasmCode);
-
-    // Find the constructor
-    const constructor = contractAbi.findConstructor(constructorName);
-    if (!constructor) {
-      throw new Error(`Constructor ${constructorName} not found in ABI`);
-    }
-
     // Estimate gas if not provided
     if (!gasLimit) {
+      // Default to a reasonable value if estimation fails
+      gasLimit = new BN('10000000000');
+      
       try {
-        const { gasRequired } = await contract.query[constructorName](
-          signer,
-          { value, gasLimit: -1, storageDepositLimit },
-          ...constructorArgs
+        // Try to estimate gas (implementation depends on chain)
+        const estimatedGas = await api.call.contractsApi.instantiateWithCode(
+          value,
+          gasLimit,
+          storageDepositLimit,
+          wasmCode,
+          contractAbi.findConstructor(constructorName).toU8a(constructorArgs),
+          saltData
         );
-        gasLimit = gasRequired;
+        
+        // Add a buffer to the estimated gas
+        gasLimit = new BN(estimatedGas.toString()).muln(1.2);
       } catch (error) {
         console.warn('Gas estimation failed, using default:', error);
-        gasLimit = new BN('100000000000');
       }
     }
 
     // Deploy the contract
-    const tx = contract.tx[constructorName]({
+    const tx = api.tx.contracts.instantiateWithCode(
       value,
       gasLimit,
       storageDepositLimit,
-      salt: saltData
-    }, ...constructorArgs);
+      wasmCode,
+      contractAbi.findConstructor(constructorName).toU8a(constructorArgs),
+      saltData
+    );
 
+    // Sign and send the transaction
     return new Promise<InkDeploymentResult>((resolve, reject) => {
       let unsubFn: (() => void) | undefined;
       
       const callback = (result: ISubmittableResult) => {
         if (result.status.isInBlock || result.status.isFinalized) {
           // Find contract instantiation event
-          const instantiateEvent = result.events.find(({ event }) =>
-            api.events.contracts.Instantiated.is(event) ||
-            api.events.contracts.InstantiatedTriggered?.is(event)
+          const instantiateEvent = result.events.find(
+            (event) => 
+              api.events.contracts.Instantiated.is(event.event) ||
+              api.events.contracts.InstantiatedTriggered?.is(event.event)
           );
 
           if (instantiateEvent) {
@@ -108,22 +115,28 @@ export async function deployInkContract({
               address: contractAddress,
               blockHash: result.status.asInBlock.toString(),
               txHash: tx.hash.toString(),
-              events: result.events.map(e => e.toHuman())
+              events: result.events.map(e => e.event.toHuman())
             });
 
+            // Cleanup subscription
             unsubFn?.();
           }
         }
         
-        if (result.isError) {
-          reject(new Error('Transaction failed'));
+        if (result.status.isDropped || result.status.isFinalityTimeout || result.status.isInvalid || result.status.isUsurped) {
+          reject(new Error(`Transaction failed with status: ${result.status.type}`));
           unsubFn?.();
         }
       };
 
+      // The correct way to handle the Promise<() => void> return type
       tx.signAndSend(signer, { signer: injector.signer }, callback)
-        .then(unsub => { unsubFn = unsub; })
-        .catch(reject);
+        .then(unsub => {
+          unsubFn = unsub;
+        })
+        .catch(error => {
+          reject(error);
+        });
     });
   } catch (error) {
     console.error('Contract deployment failed:', error);
@@ -137,13 +150,10 @@ export async function deployInkContract({
 /**
  * Create a contract instance from an existing address
  */
-export async function getInkContract(
-  address: string,
-  abi: any,
-  endpoint: string
-): Promise<ContractPromise> {
+export async function getInkContract(address: string, abi: any, endpoint: string) {
   const provider = new WsProvider(endpoint);
   const api = await ApiPromise.create({ provider });
+  
   const contractAbi = new Abi(abi, api.registry.getChainProperties());
   return new ContractPromise(api, contractAbi, address);
 }
@@ -152,7 +162,7 @@ export async function getInkContract(
  * Utility function to create a keyring from a seed or mnemonic
  */
 export function createSigner(
-  seed: string,
+  seed: string, 
   type: 'sr25519' | 'ed25519' | 'ecdsa' = 'sr25519'
 ): KeyringPair {
   return new Keyring({ type }).addFromUri(seed);

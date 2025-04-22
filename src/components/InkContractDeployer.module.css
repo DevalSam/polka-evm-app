@@ -1,0 +1,105 @@
+/* src/components/InkContractDeployer.module.css */
+.container {
+  padding: var(--space-2xl);
+  border-radius: var(--border-radius);
+  background-color: var(--panel-bg);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-3xl);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: var(--font-size-md);
+}
+
+.formGroup small {
+  color: var(--text-tertiary);
+  font-size: var(--font-size-xs);
+}
+
+.formGroup textarea, 
+.formGroup input,
+.formGroup select {
+  padding: var(--space-lg);
+  border: 1px solid var(--border-color);
+  border-radius: calc(var(--border-radius) / 2);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  transition: border-color var(--transition-normal);
+}
+
+.formGroup textarea:focus, 
+.formGroup input:focus,
+.formGroup select:focus {
+  border-color: var(--polkadot-purple);
+  outline: none;
+}
+
+.formGroup textarea {
+  font-family: var(--font-mono);
+  min-height: 100px;
+}
+
+.deployButton {
+  padding: var(--space-lg) var(--space-2xl);
+  background-color: var(--polkadot-purple);
+  color: var(--text-primary);
+  border: none;
+  border-radius: calc(var(--border-radius) / 2);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-normal);
+  margin-top: var(--space-xl);
+}
+
+.deployButton:hover {
+  background-color: var(--polkadot-light);
+}
+
+.deployButton:disabled {
+  background-color: var(--text-tertiary);
+  cursor: not-allowed;
+}
+
+.error {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background-color: rgba(255, 87, 87, 0.1);
+  color: #ff5757;
+  border-radius: calc(var(--border-radius) / 2);
+  border-left: 4px solid #ff5757;
+}
+
+.deploymentResult {
+  margin-top: var(--space-2xl);
+  padding: var(--space-xl);
+  background-color: rgba(66, 184, 131, 0.1);
+  border-radius: calc(var(--border-radius) / 2);
+  border-left: 4px solid #42b883;
+}
+
+.fileDropzone {
+  border: 2px dashed var(--border-color);
+  border-radius: calc(var(--border-radius) / 2);
+  padding: var(--space-2xl);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition-normal);
+}
+
+.fileDropzone:hover {
+  border-color: var(--polkadot-purple);
+}
