@@ -203,7 +203,7 @@ yarn test:coverage
 
 ## 🤝 Contributing
 
-We welcome contributions from the community! Please read our [contributing guidelines](CONTRIBUTING.md) before submitting pull requests.
+We welcome contributions from the community! Please read our [contributing guidelines](https://holistic-sing-29c.notion.site/Contributing-Guidelines-1de1d2de9a9a80bebd96f9474557f145?pvs=4) before submitting pull requests.
 
 ### Development Process
 
