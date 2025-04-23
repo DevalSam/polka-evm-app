@@ -88,14 +88,14 @@ function YourDApp() {
 
 ## 📚 Documentation
 
-Visit our [documentation site](https://docs.polkadot-solidity-lib.io) for comprehensive guides, API references, and examples:
+Visit our [documentation site](https://holistic-sing-29c.notion.site/All-You-Need-To-Know-1d81d2de9a9a80d291c4ca8824172ebb?pvs=4) for comprehensive guides, API references, and examples:
 
-- [Getting Started](https://docs.polkadot-solidity-lib.io/getting-started)
-- [Contract Interactions](https://docs.polkadot-solidity-lib.io/contract-interactions)
-- [Wallet Integration](https://docs.polkadot-solidity-lib.io/wallet-integration)
-- [UI Components](https://docs.polkadot-solidity-lib.io/components)
-- [Deployment Utilities](https://docs.polkadot-solidity-lib.io/deployment)
-- [Network Configuration](https://docs.polkadot-solidity-lib.io/networks)
+- [Getting Started](https://holistic-sing-29c.notion.site/Getting-Started-1d71d2de9a9a80b88324d8b39f7b3a88?pvs=4)
+- [Contract Interactions](https://holistic-sing-29c.notion.site/Contract-Interactions-1dd1d2de9a9a80b0bb1bcf188af4c0af)
+- [Wallet Integration](https://holistic-sing-29c.notion.site/Wallet-Integration-1dd1d2de9a9a800c986ff05ccd41d852?pvs=4)
+- [UI Components](https://holistic-sing-29c.notion.site/UI-Components-1dd1d2de9a9a805f863bf3ba9eccff43?pvs=4)
+- [Deployment Utilities](https://holistic-sing-29c.notion.site/Deployment-Utilities-1dd1d2de9a9a80adabc6e4bb41152d70?pvs=4)
+- [Network Configuration](https://holistic-sing-29c.notion.site/Deployment-Utilities-1dd1d2de9a9a80adabc6e4bb41152d70?pvs=4)
 
 ## 🧩 Core Components
 
