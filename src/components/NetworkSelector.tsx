@@ -1,159 +1,146 @@
-import { ApiPromise, WsProvider } from '@polkadot/api';
-import { ContractPromise } from '@polkadot/api-contract';
-import { Abi } from '@polkadot/api-contract/Abi';
-import { Keyring } from '@polkadot/keyring';
-import { KeyringPair } from '@polkadot/keyring/types';
-import { web3FromAddress } from '@polkadot/extension-dapp';
-import { BN, hexToU8a } from '@polkadot/util';
-import type { ISubmittableResult } from '@polkadot/types/types';
+import { useState, useEffect } from 'react';
+import styles from './NetworkSelector.module.css';
+import { useNetwork } from '../hooks/useNetwork';
 
-export interface InkDeploymentOptions {
-  wasm: Uint8Array | string;
-  abi: any; // Can be Abi or raw JSON
-  constructorName: string;
-  constructorArgs: any[];
-  value?: BN;
-  gasLimit?: BN;
-  storageDepositLimit?: BN | null;
-  salt?: Uint8Array | string | null;
-  signer: string;
-  endpoint: string;
+interface Network {
+  id: string;
+  name: string;
+  rpcUrl: string;
+  icon?: string;
+  explorerUrl?: string;
+  chainId?: number | string;
+  isTestnet?: boolean;
+  type: 'evm' | 'substrate';
 }
 
-export interface InkDeploymentResult {
-  address: string;
-  blockHash: string;
-  txHash: string;
-  events: any[];
+interface NetworkSelectorProps {
+  networks: Network[];
+  selectedNetwork?: Network;
+  onNetworkChange: (network: Network) => void;
 }
 
-export async function deployInkContract({
-  wasm,
-  abi,
-  constructorName,
-  constructorArgs,
-  value = new BN(0),
-  gasLimit,
-  storageDepositLimit = null,
-  salt = null,
-  signer,
-  endpoint
-}: InkDeploymentOptions): Promise<InkDeploymentResult> {
-  // Connect to the network
-  const provider = new WsProvider(endpoint);
-  const api = await ApiPromise.create({ provider });
+export function NetworkSelector({ 
+  networks, 
+  selectedNetwork, 
+  onNetworkChange 
+}: NetworkSelectorProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [filter, setFilter] = useState<'all' | 'testnet' | 'mainnet'>('all');
+  const { currentNetwork } = useNetwork();
+  
+  const [selected, setSelected] = useState<Network | undefined>(
+    selectedNetwork || (currentNetwork as Network | undefined)
+  );
 
-  try {
-    // Create the ABI instance
-    const contractAbi = new Abi(abi, api.registry.getChainProperties());
-    
-    // Get the injector for the signer
-    const injector = await web3FromAddress(signer);
-    
-    // Prepare WASM - convert from hex if needed
-    const wasmCode = typeof wasm === 'string' ? hexToU8a(wasm) : wasm;
-    
-    // Prepare salt - convert to Uint8Array or use empty array if null
-    const saltData = salt 
-      ? (typeof salt === 'string' ? hexToU8a(salt) : salt) 
-      : new Uint8Array(0);
-
-    // Create the contract factory
-    const contract = new ContractPromise(api, contractAbi, wasmCode);
-
-    // Find the constructor
-    const constructor = contractAbi.findConstructor(constructorName);
-    if (!constructor) {
-      throw new Error(`Constructor ${constructorName} not found in ABI`);
+  useEffect(() => {
+    // Update selected network when prop changes
+    if (selectedNetwork && (!selected || selectedNetwork.id !== selected.id)) {
+      setSelected(selectedNetwork);
     }
+  }, [selectedNetwork, selected]);
 
-    // Estimate gas if not provided
-    if (!gasLimit) {
-      try {
-        const { gasRequired } = await contract.query[constructorName](
-          signer,
-          { value, gasLimit: -1, storageDepositLimit },
-          ...constructorArgs
-        );
-        gasLimit = gasRequired;
-      } catch (error) {
-        console.warn('Gas estimation failed, using default:', error);
-        gasLimit = new BN('100000000000');
-      }
-    }
+  const handleNetworkSelect = (network: Network) => {
+    setSelected(network);
+    onNetworkChange(network);
+    setIsOpen(false);
+  };
 
-    // Deploy the contract
-    const tx = contract.tx[constructorName]({
-      value,
-      gasLimit,
-      storageDepositLimit,
-      salt: saltData
-    }, ...constructorArgs);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
-    return new Promise<InkDeploymentResult>((resolve, reject) => {
-      let unsubFn: (() => void) | undefined;
-      
-      const callback = (result: ISubmittableResult) => {
-        if (result.status.isInBlock || result.status.isFinalized) {
-          // Find contract instantiation event
-          const instantiateEvent = result.events.find(({ event }) =>
-            api.events.contracts.Instantiated.is(event) ||
-            api.events.contracts.InstantiatedTriggered?.is(event)
-          );
+  const filteredNetworks = networks ? networks.filter(network => {
+    if (filter === 'all') return true;
+    if (filter === 'testnet') return network.isTestnet === true;
+    if (filter === 'mainnet') return network.isTestnet === false;
+    return true;
+  }) : [];
 
-          if (instantiateEvent) {
-            const contractAddress = instantiateEvent.event.data[1].toString();
-            
-            resolve({
-              address: contractAddress,
-              blockHash: result.status.asInBlock.toString(),
-              txHash: tx.hash.toString(),
-              events: result.events.map(e => e.toHuman())
-            });
+  const renderNetworkItem = (network: Network) => {
+    const isSelected = selected && network.id === selected.id;
+    
+    return (
+      <li 
+        key={network.id} 
+        className={`${styles.networkItem} ${isSelected ? styles.selected : ''}`}
+        onClick={() => handleNetworkSelect(network)}
+      >
+        {network.icon && (
+          <img src={network.icon} alt={network.name} className={styles.networkIcon} />
+        )}
+        <div className={styles.networkInfo}>
+          <span className={styles.networkName}>{network.name}</span>
+          <span className={styles.networkType}>
+            {network.type.charAt(0).toUpperCase() + network.type.slice(1)}
+            {network.chainId && ` • Chain ID: ${network.chainId.toString()}`}
+          </span>
+        </div>
+        {network.isTestnet && <span className={styles.testnetBadge}>Testnet</span>}
+      </li>
+    );
+  };
 
-            unsubFn?.();
-          }
-        }
-        
-        if (result.isError) {
-          reject(new Error('Transaction failed'));
-          unsubFn?.();
-        }
-      };
+  return (
+    <div className={styles.networkSelector}>
+      <button 
+        className={styles.selectorButton} 
+        onClick={toggleDropdown}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+      >
+        {selected ? (
+          <div className={styles.selectedNetwork}>
+            {selected.icon && (
+              <img src={selected.icon} alt={selected.name} className={styles.networkIcon} />
+            )}
+            <span>{selected.name}</span>
+          </div>
+        ) : (
+          <span>Select Network</span>
+        )}
+        <svg 
+          className={`${styles.chevron} ${isOpen ? styles.open : ''}`} 
+          width="12" 
+          height="7" 
+          viewBox="0 0 12 7" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
 
-      tx.signAndSend(signer, { signer: injector.signer }, callback)
-        .then(unsub => { unsubFn = unsub; })
-        .catch(reject);
-    });
-  } catch (error) {
-    console.error('Contract deployment failed:', error);
-    throw error;
-  } finally {
-    // Disconnect from the provider
-    await provider.disconnect();
-  }
+      {isOpen && (
+        <div className={styles.dropdown}>
+          <div className={styles.filterTabs}>
+            <button 
+              className={`${styles.filterTab} ${filter === 'all' ? styles.active : ''}`}
+              onClick={() => setFilter('all')}
+            >
+              All
+            </button>
+            <button 
+              className={`${styles.filterTab} ${filter === 'mainnet' ? styles.active : ''}`}
+              onClick={() => setFilter('mainnet')}
+            >
+              Mainnet
+            </button>
+            <button 
+              className={`${styles.filterTab} ${filter === 'testnet' ? styles.active : ''}`}
+              onClick={() => setFilter('testnet')}
+            >
+              Testnet
+            </button>
+          </div>
+          
+          <ul className={styles.networkList} role="listbox">
+            {filteredNetworks.map(renderNetworkItem)}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
 }
 
-/**
- * Create a contract instance from an existing address
- */
-export async function getInkContract(
-  address: string,
-  abi: any,
-  endpoint: string
-): Promise<ContractPromise> {
-  const provider = new WsProvider(endpoint);
-  const api = await ApiPromise.create({ provider });
-  const contractAbi = new Abi(abi, api.registry.getChainProperties());
-  return new ContractPromise(api, contractAbi, address);
-}
-
-/**
- * Utility function to create a keyring from a seed or mnemonic
- */
-export function createSigner(
-  seed: string,
-  type: 'sr25519' | 'ed25519' | 'ecdsa' = 'sr25519'
-): KeyringPair {
-  return new Keyring({ type }).addFromUri(seed);
-}
+// Add default export
+export default NetworkSelector;

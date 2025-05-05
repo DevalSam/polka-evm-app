@@ -1,30 +1,35 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': '/src',
+      '@': path.resolve(__dirname, './src'),
     },
   },
   optimizeDeps: {
-    include: ['wagmi', 'viem'],
-  },
-  css: {
-    modules: {
-      localsConvention: 'camelCase',
-      generateScopedName: '[name]__[local]___[hash:base64:5]',
-    },
-    // Only use preprocessorOptions if you're using .scss files
-    // If using variables.css instead of variables.scss, you don't need this
-    /* 
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "./src/styles/variables.scss";`,
+    esbuildOptions: {
+      define: {
+        global: 'globalThis',
       },
     },
-    */
   },
-  // Remove assetsInclude for CSS files since they should be processed, not included as assets
+  build: {
+    rollupOptions: {
+      output: {
+        // Prevent multiple chunks with the same code
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            // Create a chunk for each polkadot package to avoid duplicates
+            if (id.includes('@polkadot')) {
+              return `polkadot-${id.split('@polkadot/')[1].split('/')[0]}`;
+            }
+          }
+        },
+      },
+    },
+  },
 });
