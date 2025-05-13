@@ -1,233 +1,231 @@
+# EVM Interface Framework for Polkadot (Template)
+
 <div align="center">
-  <h1>EVM Interface Framework for Polkadot</h1>
+  <img src="./src/IMG/cam1.png" alt="EVM Interface Framework Logo" width="800px" />
   
-  <img src="./src/IMG/cam1.png" alt="EVM Interface Framework Logo" width="1000px" />
+  <p><strong>Seamlessly Connect Polkadot and EVM Applications</strong></p>
   
-  <p>
-    <strong>Bridging Substrate and Solidity Development in the Polkadot Ecosystem</strong>
-  </p>
-  
-  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-  [![NPM Version](https://img.shields.io/npm/v/@polkadot/solidity-lib.svg)](https://www.npmjs.com/package/@polkadot/solidity-lib)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-4.9%2B-blue)](https://www.typescriptlang.org/)
-  [![React](https://img.shields.io/badge/React-18.0%2B-61DAFB.svg)](https://reactjs.org/)
+  <p><em>⚠️ IMPORTANT: This is a template/starter project and not a production-ready library. ⚠️</em></p>
 </div>
 
-## 🌉 Overview
+## What is this template?
 
-The EVM Interface Framework is a specialized toolkit designed to eliminate barriers between Substrate-native and Solidity development within the Polkadot ecosystem. This library provides a unified, intuitive interface for interacting with EVM smart contracts deployed on Polkadot's EVM-compatible environments, while maintaining the familiar development experience Substrate developers expect.
+This project demonstrates how developers can build interfaces to interact with both Ethereum-style (EVM) smart contracts and Substrate contracts on Polkadot networks. The template includes React components and hooks that showcase blockchain operations like:
 
-### Key Features
+- Connecting to multiple wallet types (MetaMask, Polkadot.js)
+- Interacting with deployed smart contracts
+- Deploying new contracts
+- Switching between different Polkadot networks
 
-- **Unified Contract Interface** - Interact with EVM contracts using consistent, type-safe patterns
-- **Multi-Wallet Support** - Seamless integration with both Polkadot.js and MetaMask wallets
-- **Cross-Environment Components** - Ready-to-use React components for common blockchain operations
-- **Deployment Utilities** - Simplified contract deployment across Polkadot's EVM environments
-- **Developer-Focused Design** - Built by developers, for developers, with DX as the priority
-
-## 🚀 Quick Start
+## How to Use It
 
 ### Installation
 
 ```bash
-# Using npm
-npm install @polkadot/solidity-lib
+# Clone this template
+git clone https://github.com/your-username/polka-evm-app.git
 
-# Using yarn
-yarn add @polkadot/solidity-lib
+# Install dependencies
+npm install
 
-# Using pnpm
-pnpm add @polkadot/solidity-lib
+# Start development server
+npm run dev
 ```
 
-### Basic Usage
+### Usage Examples
+
+The following examples demonstrate how you could use the components in this template:
+
+#### 1. Connect a Wallet
 
 ```tsx
-import { useEvmContract, useWallet } from '@polkadot/solidity-lib';
-import { PolkadotProvider } from '@polkadot/solidity-lib/core';
-import { ConnectButton } from '@polkadot/solidity-lib/components';
+import { WalletConnector } from 'polka-evm-lib';
 
-// Set up your application
 function App() {
   return (
-    <PolkadotProvider>
-      <YourDApp />
-    </PolkadotProvider>
-  );
-}
-
-// Use in your components
-function YourDApp() {
-  // Connect to wallets easily
-  const { address, isConnected } = useWallet();
-  
-  // Interact with contracts
-  const { read, write } = useEvmContract({
-    address: '0xYourContractAddress',
-    abi: YourContractABI,
-  });
-  
-  return (
     <div>
-      <ConnectButton />
-      
-      {isConnected && (
-        <div>
-          <p>Connected: {address}</p>
-          <button 
-            onClick={() => write.yourContractMethod()}
-          >
-            Execute Contract Function
-          </button>
-        </div>
-      )}
+      <h1>My DApp</h1>
+      <WalletConnector />
     </div>
   );
 }
 ```
 
-## 📚 Documentation
-
-Visit our [documentation site](https://holistic-sing-29c.notion.site/All-You-Need-To-Know-1d81d2de9a9a80d291c4ca8824172ebb?pvs=4) for comprehensive guides, API references, and examples:
-
-- [Getting Started](https://holistic-sing-29c.notion.site/Getting-Started-1d71d2de9a9a80b88324d8b39f7b3a88?pvs=4)
-- [Contract Interactions](https://holistic-sing-29c.notion.site/Contract-Interactions-1dd1d2de9a9a80b0bb1bcf188af4c0af)
-- [Wallet Integration](https://holistic-sing-29c.notion.site/Wallet-Integration-1dd1d2de9a9a800c986ff05ccd41d852?pvs=4)
-- [UI Components](https://holistic-sing-29c.notion.site/UI-Components-1dd1d2de9a9a805f863bf3ba9eccff43?pvs=4)
-- [Deployment Utilities](https://holistic-sing-29c.notion.site/Deployment-Utilities-1dd1d2de9a9a80adabc6e4bb41152d70?pvs=4)
-- [Network Configuration](https://holistic-sing-29c.notion.site/Deployment-Utilities-1dd1d2de9a9a80adabc6e4bb41152d70?pvs=4)
-
-## 🧩 Core Components
-
-The framework consists of several key modules that work together to create a seamless development experience:
-
-### Contract Interface
+#### 2. Interact with an EVM Contract
 
 ```tsx
-// Read contract state
-const balance = await read.balanceOf(address);
+import { useEvmContract } from 'polka-evm-lib';
 
-// Write to contract (returns transaction receipt)
-const tx = await write.transfer(recipient, amount);
-await tx.wait(); // Wait for confirmation
+function Counter() {
+  const { read, write, isLoading } = useEvmContract({
+    address: '0xYourContractAddress',
+    abi: YourContractABI,
+  });
 
-// Listen to events
-useContractEvent({
-  contract,
-  eventName: 'Transfer',
-  listener(from, to, amount) {
-    console.log(`Transfer: ${from} → ${to}: ${amount}`);
+  const [count, setCount] = useState(0);
+
+  // Read from the contract
+  useEffect(() => {
+    const getCount = async () => {
+      const value = await read.getValue();
+      setCount(value);
+    };
+    getCount();
+  }, [read]);
+
+  // Write to the contract
+  const increment = async () => {
+    const tx = await write.increment();
+    await tx.wait();
+    // Refresh the count
+    setCount(await read.getValue());
+  };
+
+  return (
+    <div>
+      <p>Counter Value: {count.toString()}</p>
+      <button onClick={increment} disabled={isLoading}>
+        Increment
+      </button>
+    </div>
+  );
+}
+```
+
+#### 3. Deploy an EVM Contract
+
+```tsx
+import { ContractDeployer } from 'polka-evm-lib';
+import counterABI from './counterABI.json';
+import counterBytecode from './counterBytecode.json';
+
+function DeployCounter() {
+  const handleSuccess = (contractAddress) => {
+    console.log(`Contract deployed at: ${contractAddress}`);
+  };
+
+  return (
+    <ContractDeployer
+      abi={counterABI}
+      bytecode={counterBytecode}
+      constructorArgs={[]}
+      onSuccess={handleSuccess}
+    />
+  );
+}
+```
+
+#### 4. Switch Networks
+
+```tsx
+import { NetworkSelector } from 'polka-evm-lib';
+
+const networks = [
+  {
+    id: 'moonbeam',
+    name: 'Moonbeam',
+    rpcUrl: 'https://rpc.api.moonbeam.network',
+    type: 'evm',
+    chainId: 1284
   },
-});
+  {
+    id: 'astar',
+    name: 'Astar',
+    rpcUrl: 'https://astar.api.onfinality.io/public',
+    type: 'evm',
+    chainId: 592
+  }
+];
+
+function NetworkSwitcher() {
+  const handleNetworkChange = (network) => {
+    console.log(`Switched to ${network.name}`);
+  };
+
+  return (
+    <NetworkSelector 
+      networks={networks}
+      onNetworkChange={handleNetworkChange}
+    />
+  );
+}
 ```
 
-### Wallet Management
+## Potential Use Cases
 
-```tsx
-const { 
-  connect, 
-  disconnect, 
-  address,
-  chainId,
-  isConnected,
-  switchNetwork
-} = useWallet();
-```
+If fully developed, this template could serve as the foundation for applications such as:
 
-### UI Components
+### 1. Cross-Chain DeFi Application
 
-```tsx
-// Easy wallet connection
-<ConnectButton 
-  supportedWallets={['polkadot-js', 'metamask']} 
-/>
+Build a DeFi application that can interact with both EVM-based DEXes on Moonbeam and Substrate-based protocols on other parachains.
 
-// Network selection
-<NetworkSelector 
-  networks={['moonbeam', 'astar']} 
-/>
+### 2. NFT Marketplace
 
-// Contract interaction forms
-<ContractForm 
-  contract={contract}
-  method="transfer"
-/>
-```
+Create an NFT marketplace that supports NFTs minted on both EVM and Substrate chains, providing a unified interface for users.
 
-## 🌐 Supported Networks
+### 3. DAOs with Cross-Chain Governance
 
-The framework supports all EVM-compatible environments in the Polkadot ecosystem:
+Develop DAO tools that can execute governance decisions across multiple Polkadot ecosystem chains.
 
-- Moonbeam
-- Moonriver
-- Astar
-- Shiden
-- Acala EVM+
-- Any other parachain supporting the Frontier EVM pallet
+### 4. Cross-Chain Game Assets
 
-## 🛠️ Development
+Build games where assets can move between different Polkadot parachains regardless of whether they use EVM or Substrate.
 
-### Prerequisites
+## Technical Implementation Overview
 
-- Node.js 16+
-- yarn or npm
-- Basic knowledge of React and TypeScript
-- Familiarity with Polkadot and EVM concepts
+This template demonstrates approaches for bridging the gap between Polkadot's Substrate ecosystem and EVM compatibility by:
 
-### Setup Development Environment
+- Using Polkadot.js for Substrate interactions
+- Leveraging ethers.js for EVM compatibility
+- Providing a unified wallet connection interface
+- Supporting contract deployments on both environments
+- Handling network switching and chain detection automatically
+
+### Template Components
+
+The template includes these sample components:
+
+- **WalletConnector**: Manages wallet connections for both EVM and Substrate
+- **useNetwork**: Hook for managing network state
+- **useEvmContract**: Hook for interacting with EVM smart contracts
+- **useContract**: Hook for interacting with Substrate contracts
+- **ContractDeployer**: Component for deploying EVM contracts
+- **InkContractDeployer**: Component for deploying Substrate ink! contracts
+
+## Getting Started with This Template
 
 ```bash
 # Clone the repository
-git clone https://github.com/polkadot-js/solidity-lib.git
-cd solidity-lib
+git clone https://github.com/your-username/polka-evm-app.git
 
 # Install dependencies
-yarn install
+npm install
 
-# Start development environment
-yarn dev
+# Start development server
+npm run dev
 ```
 
-### Testing
+## Development Status
 
-```bash
-# Run unit tests
-yarn test
+⚠️ **Important Note:** This is a development template intended for educational and demonstration purposes. It is not a production-ready library and may contain bugs or incomplete features. Use it as a starting point for your own implementation rather than in production applications.
 
-# Run end-to-end tests
-yarn test:e2e
+## Next Steps for Development
 
-# Check test coverage
-yarn test:coverage
-```
+If you wish to build this into a full library:
 
-## 🤝 Contributing
+- Complete the implementation of all hooks and components
+- Add comprehensive test coverage
+- Implement proper error handling
+- Create detailed documentation
+- Add TypeScript type definitions
+- Publish to npm with appropriate versioning
 
-We welcome contributions from the community! Please read our [contributing guidelines](https://holistic-sing-29c.notion.site/Contributing-Guidelines-1de1d2de9a9a80bebd96f9474557f145?pvs=4) before submitting pull requests.
+## License
 
-### Development Process
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](https://opensource.org/license/MIT) file for details.
-
-## 🙏 Acknowledgements
-
-This project was made possible through our shared passion for the Web3 space and huge support from the Polkadot ecosystem community.
-
-Special thanks to:
-- The Polkadot.js team for their excellent substrate libraries
-- The Moonbeam and Astar teams for their EVM implementations
-- All the developers who keep providing feedback and contributions
+MIT License
 
 ---
 
 <div align="center">
-  <p>Built with ❤️ for the Polkadot ecosystem</p>
-</div
+  <p>A template project for the Polkadot ecosystem</p>
+</div>
