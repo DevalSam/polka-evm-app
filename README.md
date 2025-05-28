@@ -8,7 +8,7 @@
 
 ---
 
-> **Developer's Note**: This is my passion project and pathway to contributing to the Polkadot ecosystem. I'm committed to relentlessly enhancing this template to production-ready standards with constant updates and improvements. My goal is to make cross-chain development accessible and earn recognition in the Polkadot community.
+> **Developer's Note**: This is my passion project and pathway to contributing to the Polkadot ecosystem. I'm committed to relentlessly enhancing this template to production-ready standards with constant updates and improvements. My goal is to make cross-chain development accessible and earn a spot in the Polkadot community.
 
 ---
 
