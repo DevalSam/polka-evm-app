@@ -373,7 +373,7 @@ function NFTApp() {
 - 🔧 **Contribute** code
 
 ### 📞 **Contact**
-- **GitHub**: [@DevalSam](https://github.com/DevalSam/polka-evm-app)
+- **GitHub**: [@DevalSam](https://github.com/DevalSam)
 - **Twitter**: [@DeEvalSam](https://x.com/DeEvalSam?t=ROLuRdEz4Azr7bR9b4FnPQ&s=09)
 - **Email**: edubsam@gmail.com
 
