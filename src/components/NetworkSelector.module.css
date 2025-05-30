@@ -1,10 +1,9 @@
 @import '../variables.css';
 
-/* Main NetworkSelector Component Styles */
+/* Main NetworkSelector Component Styles - Full Width */
 .networkSelector {
   position: relative;
-  width: 100%;
-  max-width: 320px;
+  width: 100%; /* Changed from max-width: 320px to full width */
 }
 
 .selectorButton {
@@ -354,6 +353,11 @@
 .networkCount {
   font-size: var(--font-size-sm);
   color: var(--text-secondary);
+}
+
+.contractTypeIndicator {
+  color: var(--polkadot-purple);
+  font-weight: 500;
 }
 
 /* Legacy Panel Styles - For compatibility with existing NetworkPanel */

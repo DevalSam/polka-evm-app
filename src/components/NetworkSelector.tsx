@@ -25,6 +25,7 @@ interface NetworkSelectorProps {
   onNetworkChange: (network: Network) => void;
   showFilters?: boolean;
   showDescription?: boolean;
+  contractTypeFilter?: 'solidity' | 'ink'; // New prop for filtering networks
 }
 
 // Default Polkadot Networks
@@ -235,7 +236,8 @@ export function NetworkSelector({
   selectedNetwork, 
   onNetworkChange,
   showFilters = true,
-  showDescription = false
+  showDescription = false,
+  contractTypeFilter // New prop
 }: NetworkSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState<'all' | 'testnet' | 'mainnet' | 'evm' | 'substrate'>('all');
@@ -264,7 +266,25 @@ export function NetworkSelector({
     setIsOpen(!isOpen);
   };
 
-  const filteredNetworks = networks.filter(network => {
+  // Filter networks based on contract type
+  const getFilteredNetworksByContractType = (allNetworks: Network[]) => {
+    if (!contractTypeFilter) return allNetworks;
+    
+    if (contractTypeFilter === 'solidity') {
+      // Show only EVM-compatible networks for Solidity
+      return allNetworks.filter(network => network.type === 'evm');
+    } else if (contractTypeFilter === 'ink') {
+      // Show only Substrate networks for ink!
+      return allNetworks.filter(network => network.type === 'substrate');
+    }
+    
+    return allNetworks;
+  };
+
+  // Apply contract type filter first, then other filters
+  const contractTypeFilteredNetworks = getFilteredNetworksByContractType(networks);
+
+  const filteredNetworks = contractTypeFilteredNetworks.filter(network => {
     // Search filter
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
@@ -370,19 +390,23 @@ export function NetworkSelector({
     );
   };
 
-  // Get filter counts
-  const allCount = networks.length;
-  const mainnetCount = networks.filter(n => !n.isTestnet).length;
-  const testnetCount = networks.filter(n => n.isTestnet).length;
-  const evmCount = networks.filter(n => n.type === 'evm').length;
-  const substrateCount = networks.filter(n => n.type === 'substrate').length;
+  // Get filter counts based on contract type filtered networks
+  const allCount = contractTypeFilteredNetworks.length;
+  const mainnetCount = contractTypeFilteredNetworks.filter(n => !n.isTestnet).length;
+  const testnetCount = contractTypeFilteredNetworks.filter(n => n.isTestnet).length;
+  const evmCount = contractTypeFilteredNetworks.filter(n => n.type === 'evm').length;
+  const substrateCount = contractTypeFilteredNetworks.filter(n => n.type === 'substrate').length;
 
-  // If no networks provided, show a message
-  if (!networks || networks.length === 0) {
+  // If no networks provided or no networks match contract type, show a message
+  if (!networks || networks.length === 0 || contractTypeFilteredNetworks.length === 0) {
+    const message = contractTypeFilter 
+      ? `No ${contractTypeFilter === 'solidity' ? 'EVM' : 'Substrate'} networks available`
+      : 'No networks available';
+      
     return (
       <div className={styles.networkSelector}>
         <button className={styles.selectorButton} disabled>
-          <span>No networks available</span>
+          <span>{message}</span>
         </button>
       </div>
     );
@@ -454,7 +478,7 @@ export function NetworkSelector({
             />
           </div>
 
-          {/* Filter tabs - show if enabled and there are networks to filter */}
+          {/* Filter tabs - show if enabled and adjust based on contract type filter */}
           {showFilters && (
             <div className={styles.filterTabs}>
               <button 
@@ -475,18 +499,23 @@ export function NetworkSelector({
               >
                 Testnet ({testnetCount})
               </button>
-              <button 
-                className={`${styles.filterTab} ${filter === 'evm' ? styles.active : ''}`}
-                onClick={() => setFilter('evm')}
-              >
-                EVM ({evmCount})
-              </button>
-              <button 
-                className={`${styles.filterTab} ${filter === 'substrate' ? styles.active : ''}`}
-                onClick={() => setFilter('substrate')}
-              >
-                Substrate ({substrateCount})
-              </button>
+              {/* Only show EVM/Substrate filters if we're not already filtering by contract type */}
+              {!contractTypeFilter && (
+                <>
+                  <button 
+                    className={`${styles.filterTab} ${filter === 'evm' ? styles.active : ''}`}
+                    onClick={() => setFilter('evm')}
+                  >
+                    EVM ({evmCount})
+                  </button>
+                  <button 
+                    className={`${styles.filterTab} ${filter === 'substrate' ? styles.active : ''}`}
+                    onClick={() => setFilter('substrate')}
+                  >
+                    Substrate ({substrateCount})
+                  </button>
+                </>
+              )}
             </div>
           )}
           
@@ -509,10 +538,15 @@ export function NetworkSelector({
           {/* Quick stats footer */}
           <div className={styles.dropdownFooter}>
             <span className={styles.networkCount}>
-              {filteredNetworks.length !== networks.length 
-                ? `${filteredNetworks.length} of ${networks.length} networks`
-                : `${networks.length} network${networks.length !== 1 ? 's' : ''} available`
+              {filteredNetworks.length !== contractTypeFilteredNetworks.length 
+                ? `${filteredNetworks.length} of ${contractTypeFilteredNetworks.length} networks`
+                : `${contractTypeFilteredNetworks.length} network${contractTypeFilteredNetworks.length !== 1 ? 's' : ''} available`
               }
+              {contractTypeFilter && (
+                <span className={styles.contractTypeIndicator}>
+                  • {contractTypeFilter === 'solidity' ? 'EVM only' : 'Substrate only'}
+                </span>
+              )}
             </span>
           </div>
         </div>
