@@ -4,7 +4,7 @@
 .networkSelector {
   position: relative;
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
 }
 
 .selectorButton {
@@ -19,7 +19,7 @@
   justify-content: space-between;
   transition: all var(--transition-normal);
   font-size: var(--font-size-md);
-  min-height: 48px;
+  min-height: 52px;
   color: var(--text-primary);
   font-family: var(--font-body);
 }
@@ -40,6 +40,7 @@
   border-color: var(--border-color);
   cursor: not-allowed;
   color: var(--text-secondary);
+  opacity: 0.6;
 }
 
 .selectedNetwork {
@@ -60,19 +61,43 @@
   font-weight: 600;
   color: var(--text-primary);
   font-size: var(--font-size-md);
+  line-height: 1.2;
 }
 
 .selectedType {
   font-size: var(--font-size-sm);
   color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+/* Network Icon Styles */
+.networkIconContainer {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
 }
 
 .networkIcon {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  flex-shrink: 0;
-  border: 1px solid rgba(230, 0, 122, 0.3);
+  border: 2px solid rgba(230, 0, 122, 0.3);
+  object-fit: cover;
+}
+
+.networkIconFallback {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--polkadot-purple), var(--polkadot-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  border: 2px solid rgba(230, 0, 122, 0.3);
 }
 
 .chevron {
@@ -85,6 +110,7 @@
   transform: rotate(180deg);
 }
 
+/* Dropdown Styles */
 .dropdown {
   position: absolute;
   top: 100%;
@@ -98,6 +124,9 @@
   margin-top: 4px;
   overflow: hidden;
   animation: dropdownSlide 0.2s ease;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes dropdownSlide {
@@ -111,26 +140,58 @@
   }
 }
 
+/* Search Container */
+.searchContainer {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--border-accent);
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--metadata-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-body);
+}
+
+.searchInput::placeholder {
+  color: var(--text-secondary);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--polkadot-purple);
+  box-shadow: 0 0 0 2px rgba(230, 0, 122, 0.1);
+}
+
+/* Filter Tabs */
 .filterTabs {
   display: flex;
   background: var(--metadata-bg);
   border-bottom: 1px solid var(--border-accent);
   padding: 4px;
   gap: 2px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
 }
 
 .filterTab {
   flex: 1;
+  min-width: fit-content;
   padding: var(--space-xs) var(--space-sm);
   background: transparent;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: var(--font-size-sm);
+  font-size: 11px;
   font-weight: 500;
   color: var(--text-secondary);
   transition: all var(--transition-normal);
   font-family: var(--font-body);
+  white-space: nowrap;
 }
 
 .filterTab:hover {
@@ -143,12 +204,14 @@
   color: white;
 }
 
+/* Network List */
 .networkList {
   list-style: none;
   margin: 0;
-  padding: var(--space-xs) 0;
-  max-height: 280px;
+  padding: 0;
+  max-height: 320px;
   overflow-y: auto;
+  flex: 1;
 }
 
 .networkItem {
@@ -159,8 +222,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 60px;
+  min-height: 68px;
   color: var(--text-primary);
+  border-bottom: 1px solid rgba(230, 0, 122, 0.1);
+}
+
+.networkItem:last-child {
+  border-bottom: none;
 }
 
 .networkItem:hover {
@@ -170,6 +238,7 @@
 .networkItem.selected {
   background: rgba(230, 0, 122, 0.2);
   color: var(--polkadot-purple);
+  border-left: 4px solid var(--polkadot-purple);
 }
 
 .networkContent {
@@ -177,6 +246,7 @@
   align-items: center;
   gap: var(--space-md);
   flex: 1;
+  min-width: 0; /* Allow text truncation */
 }
 
 .networkInfo {
@@ -184,35 +254,82 @@
   flex-direction: column;
   gap: 4px;
   flex: 1;
+  min-width: 0; /* Allow text truncation */
 }
 
 .networkNameRow {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
+  flex-wrap: wrap;
 }
 
 .networkName {
   font-weight: 600;
   font-size: var(--font-size-md);
   color: var(--text-primary);
+  line-height: 1.2;
 }
 
 .networkDetails {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
   font-size: var(--font-size-sm);
   color: var(--text-secondary);
-  font-family: var(--font-mono);
+  flex-wrap: wrap;
 }
 
+.networkSymbol {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--polkadot-purple);
+}
+
+.chainId {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.networkDescription {
+  font-size: 11px;
+  color: var(--text-secondary);
+  opacity: 0.8;
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+/* Network Badges */
 .testnetBadge {
   background: linear-gradient(135deg, #FFC107, #FF9800);
   color: #000;
   padding: 2px 6px;
   border-radius: 4px;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.networkTypeBadge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.networkTypeBadge[data-type="evm"] {
+  background: linear-gradient(135deg, #627EEA, #4B8BF5);
+  color: white;
+}
+
+.networkTypeBadge[data-type="substrate"] {
+  background: linear-gradient(135deg, var(--polkadot-purple), var(--polkadot-light));
+  color: white;
 }
 
 .checkIcon {
@@ -231,6 +348,7 @@
   background: var(--metadata-bg);
   padding: var(--space-xs) var(--space-lg);
   border-top: 1px solid var(--border-accent);
+  flex-shrink: 0;
 }
 
 .networkCount {
@@ -445,6 +563,7 @@
 
 .networkList::-webkit-scrollbar-track {
   background: var(--metadata-bg);
+  border-radius: 3px;
 }
 
 .networkList::-webkit-scrollbar-thumb {
@@ -456,6 +575,12 @@
   background: var(--polkadot-light);
 }
 
+/* Firefox scrollbar */
+.networkList {
+  scrollbar-width: thin;
+  scrollbar-color: var(--polkadot-purple) var(--metadata-bg);
+}
+
 /* Responsive Design */
 @media screen and (max-width: 768px) {
   .networkSelector {
@@ -464,17 +589,19 @@
   
   .selectorButton {
     padding: var(--space-sm) var(--space-md);
-    min-height: 44px;
+    min-height: 48px;
   }
   
   .networkItem {
     padding: var(--space-sm) var(--space-md);
-    min-height: 52px;
+    min-height: 60px;
   }
   
-  .networkIcon {
-    width: 20px;
-    height: 20px;
+  .networkIconContainer,
+  .networkIcon,
+  .networkIconFallback {
+    width: 24px;
+    height: 24px;
   }
   
   .networkContainer {
@@ -483,7 +610,28 @@
   
   .filterTab {
     padding: var(--space-xs);
+    font-size: 10px;
+  }
+  
+  .filterTabs {
+    padding: 2px;
+    gap: 1px;
+  }
+  
+  .networkName {
+    font-size: var(--font-size-sm);
+  }
+  
+  .networkDetails {
     font-size: 12px;
+  }
+  
+  .dropdown {
+    max-height: 60vh;
+  }
+  
+  .networkList {
+    max-height: 250px;
   }
 }
 
@@ -494,7 +642,7 @@
   
   .selectorButton {
     padding: var(--space-sm);
-    min-height: 40px;
+    min-height: 44px;
   }
   
   .selectedName {
@@ -502,15 +650,36 @@
   }
   
   .networkName {
-    font-size: var(--font-size-sm);
+    font-size: 13px;
   }
   
-  .dropdown {
-    max-height: 60vh;
+  .networkItem {
+    min-height: 56px;
+    padding: var(--space-sm);
   }
   
-  .networkList {
-    max-height: 200px;
+  .networkNameRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .networkDetails {
+    gap: var(--space-xs);
+  }
+  
+  .filterTab {
+    font-size: 9px;
+    padding: 4px 6px;
+  }
+  
+  .searchInput {
+    font-size: 14px; /* Prevent zoom on iOS */
+  }
+  
+  .testnetBadge,
+  .networkTypeBadge {
+    font-size: 8px;
   }
 }
 
@@ -526,7 +695,15 @@
   
   .networkItem.selected {
     background: rgba(230, 0, 122, 0.4);
-    border-left: 4px solid var(--polkadot-purple);
+    border-left-width: 6px;
+  }
+  
+  .testnetBadge {
+    border: 1px solid #000;
+  }
+  
+  .networkTypeBadge {
+    border: 1px solid rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -550,5 +727,54 @@
   
   .loadingSpinner {
     animation: none;
+  }
+  
+  .pulse {
+    animation: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.filterTab:focus,
+.searchInput:focus,
+.selectorButton:focus {
+  outline: 2px solid var(--polkadot-purple);
+  outline-offset: 2px;
+}
+
+.networkItem:focus {
+  outline: 2px solid var(--polkadot-purple);
+  outline-offset: -2px;
+}
+
+/* Print styles */
+@media print {
+  .dropdown {
+    display: none;
+  }
+  
+  .networkSelector {
+    break-inside: avoid;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .searchInput {
+    background: var(--polkadot-darker);
+    border-color: var(--border-accent);
+  }
+  
+  .searchInput::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+  }
+  
+  .networkItem:hover {
+    background: rgba(230, 0, 122, 0.15);
+  }
+  
+  .filterTab:hover {
+    background: rgba(230, 0, 122, 0.1);
   }
 }
