@@ -1,13 +1,252 @@
 @import '../variables.css';
 
+/* Main NetworkSelector Component Styles */
+.networkSelector {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.selectorButton {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--polkadot-darker);
+  border: 2px solid var(--border-accent);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all var(--transition-normal);
+  font-size: var(--font-size-md);
+  min-height: 48px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+.selectorButton:hover {
+  border-color: var(--polkadot-purple);
+  box-shadow: 0 0 0 3px rgba(230, 0, 122, 0.1);
+}
+
+.selectorButton:focus {
+  outline: none;
+  border-color: var(--polkadot-purple);
+  box-shadow: 0 0 0 3px rgba(230, 0, 122, 0.2);
+}
+
+.selectorButton:disabled {
+  background: var(--polkadot-darker);
+  border-color: var(--border-color);
+  cursor: not-allowed;
+  color: var(--text-secondary);
+}
+
+.selectedNetwork {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 1;
+}
+
+.selectedInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.selectedName {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: var(--font-size-md);
+}
+
+.selectedType {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.networkIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1px solid rgba(230, 0, 122, 0.3);
+}
+
+.chevron {
+  transition: transform var(--transition-normal);
+  color: var(--polkadot-purple);
+  flex-shrink: 0;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--polkadot-darker);
+  border: 2px solid var(--border-accent);
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  margin-top: 4px;
+  overflow: hidden;
+  animation: dropdownSlide 0.2s ease;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.filterTabs {
+  display: flex;
+  background: var(--metadata-bg);
+  border-bottom: 1px solid var(--border-accent);
+  padding: 4px;
+  gap: 2px;
+}
+
+.filterTab {
+  flex: 1;
+  padding: var(--space-xs) var(--space-sm);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all var(--transition-normal);
+  font-family: var(--font-body);
+}
+
+.filterTab:hover {
+  background: var(--polkadot-darker);
+  color: var(--text-primary);
+}
+
+.filterTab.active {
+  background: var(--polkadot-purple);
+  color: white;
+}
+
+.networkList {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-xs) 0;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.networkItem {
+  padding: var(--space-md) var(--space-lg);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+  color: var(--text-primary);
+}
+
+.networkItem:hover {
+  background: rgba(230, 0, 122, 0.1);
+}
+
+.networkItem.selected {
+  background: rgba(230, 0, 122, 0.2);
+  color: var(--polkadot-purple);
+}
+
+.networkContent {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex: 1;
+}
+
+.networkInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.networkNameRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.networkName {
+  font-weight: 600;
+  font-size: var(--font-size-md);
+  color: var(--text-primary);
+}
+
+.networkDetails {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.testnetBadge {
+  background: linear-gradient(135deg, #FFC107, #FF9800);
+  color: #000;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.checkIcon {
+  color: var(--polkadot-purple);
+  flex-shrink: 0;
+}
+
+.noNetworks {
+  padding: var(--space-xl) var(--space-lg);
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: var(--font-size-md);
+}
+
+.dropdownFooter {
+  background: var(--metadata-bg);
+  padding: var(--space-xs) var(--space-lg);
+  border-top: 1px solid var(--border-accent);
+}
+
+.networkCount {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+/* Legacy Panel Styles - For compatibility with existing NetworkPanel */
 .networkPanel {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  background: #17132b;
-  padding: 1.5rem;
-  border-radius: 12px;
-  border: 1px solid rgba(230, 0, 122, 0.3);
+  gap: var(--space-lg);
+  background: var(--polkadot-darker);
+  padding: var(--space-xl);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-accent);
   height: 100%;
   width: 100%;
 }
@@ -44,22 +283,18 @@
   margin: 0;
 }
 
-.networkSelector {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-}
-
 .networkLabel {
   font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
 }
 
 .selectContainer {
   position: relative;
 }
 
+/* Legacy select styles - keep for backward compatibility */
 .networkSelect {
   width: 100%;
   padding: var(--space-sm) var(--space-lg);
@@ -89,16 +324,7 @@
   pointer-events: none;
 }
 
-.networkInfo {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  margin-top: var(--space-sm);
-  background-color: rgba(0, 0, 0, 0.15);
-  border-radius: 6px;
-  padding: var(--space-md);
-}
-
+/* Info display styles */
 .infoRow {
   display: flex;
   justify-content: space-between;
@@ -130,66 +356,199 @@
 
 .statusDotConnected {
   background-color: #4CAF50;
+  box-shadow: 0 0 6px rgba(76, 175, 80, 0.5);
 }
 
 .statusDotDisconnected {
   background-color: #F44336;
+  box-shadow: 0 0 6px rgba(244, 67, 54, 0.5);
 }
 
 .statusDotConnecting {
   background-color: #FFC107;
   animation: pulse 1.5s infinite;
+  box-shadow: 0 0 6px rgba(255, 193, 7, 0.5);
 }
 
 .statusText {
   font-size: var(--font-size-sm);
+  color: var(--text-primary);
 }
 
 .actionButton {
   align-self: flex-start;
-  background-color: var(--polkadot-purple);
+  background: linear-gradient(135deg, var(--polkadot-purple), var(--polkadot-light));
   color: white;
   font-weight: 600;
-  padding: 0.6rem 1.2rem;
+  padding: var(--space-sm) var(--space-lg);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: background var(--transition-normal), transform var(--transition-fast);
+  transition: all var(--transition-normal);
   display: flex;
   align-items: center;
   gap: var(--space-sm);
   margin-top: var(--space-sm);
+  font-family: var(--font-body);
+  text-transform: none;
 }
 
 .actionButton:hover {
-  background-color: var(--polkadot-light);
+  background: linear-gradient(135deg, var(--polkadot-light), var(--polkadot-purple));
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(230, 0, 122, 0.3);
 }
 
 .actionButton:active {
   transform: translateY(0);
 }
 
+.actionButton:disabled {
+  background: var(--polkadot-darker);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 .loadingSpinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-top-color: white;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
+/* Animations */
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to { 
+    transform: rotate(360deg); 
+  }
 }
 
+/* Scrollbar styles for network list */
+.networkList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.networkList::-webkit-scrollbar-track {
+  background: var(--metadata-bg);
+}
+
+.networkList::-webkit-scrollbar-thumb {
+  background: var(--polkadot-purple);
+  border-radius: 3px;
+}
+
+.networkList::-webkit-scrollbar-thumb:hover {
+  background: var(--polkadot-light);
+}
+
+/* Responsive Design */
 @media screen and (max-width: 768px) {
+  .networkSelector {
+    max-width: 100%;
+  }
+  
+  .selectorButton {
+    padding: var(--space-sm) var(--space-md);
+    min-height: 44px;
+  }
+  
+  .networkItem {
+    padding: var(--space-sm) var(--space-md);
+    min-height: 52px;
+  }
+  
+  .networkIcon {
+    width: 20px;
+    height: 20px;
+  }
+  
   .networkContainer {
     padding: var(--space-lg);
+  }
+  
+  .filterTab {
+    padding: var(--space-xs);
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .networkPanel {
+    padding: var(--space-lg);
+  }
+  
+  .selectorButton {
+    padding: var(--space-sm);
+    min-height: 40px;
+  }
+  
+  .selectedName {
+    font-size: var(--font-size-sm);
+  }
+  
+  .networkName {
+    font-size: var(--font-size-sm);
+  }
+  
+  .dropdown {
+    max-height: 60vh;
+  }
+  
+  .networkList {
+    max-height: 200px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .selectorButton {
+    border-width: 3px;
+  }
+  
+  .networkItem:hover {
+    background: rgba(230, 0, 122, 0.3);
+  }
+  
+  .networkItem.selected {
+    background: rgba(230, 0, 122, 0.4);
+    border-left: 4px solid var(--polkadot-purple);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .chevron,
+  .selectorButton,
+  .networkItem,
+  .filterTab,
+  .actionButton {
+    transition: none;
+  }
+  
+  .dropdown {
+    animation: none;
+  }
+  
+  .statusDotConnecting {
+    animation: none;
+  }
+  
+  .loadingSpinner {
+    animation: none;
   }
 }
