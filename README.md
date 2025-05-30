@@ -37,6 +37,7 @@ function App() {
 }
 ```
 **Follow The Complete guide**: [Here](https://holistic-sing-29c.notion.site/Polkadot-EVM-Template-Detailed-Integration-Guide-2031d2de9a9a806a863ace2427ba338e?pvs=4)
+
 **Result**: **95% less code**, **weeks to hours** development time
 
 ---
