@@ -16,7 +16,7 @@
 
 **Current Status**: Template/starter project demonstrating cross-chain patterns  
 **Vision**: Production-ready framework for seamless Polkadot-EVM integration     
-**Follow The Complete guide**: [Here](https://holistic-sing-29c.notion.site/Polkadot-EVM-Template-Detailed-Integration-Guide-2031d2de9a9a806a863ace2427ba338e?pvs=4)
+
 ### 🚀 **The Problem**
 Building cross-chain dApps today requires:
 - **3-6 weeks** of complex setup
@@ -25,6 +25,7 @@ Building cross-chain dApps today requires:
 - **Constant maintenance** of dependencies
 
 ### ✅ **Our Solution**
+**Follow The Complete guide**: [Here](https://holistic-sing-29c.notion.site/Polkadot-EVM-Template-Detailed-Integration-Guide-2031d2de9a9a806a863ace2427ba338e?pvs=4)
 ```typescript
 // Instead of 200+ lines, just this:
 import { WalletConnector, useEvmContract, useContract } from './components';
